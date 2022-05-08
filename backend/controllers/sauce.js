@@ -11,14 +11,14 @@ exports.getAllSauces = (req, res, next) => {
       res.status(200).json(Sauces);
     })
     .catch((error) => {
-      res.status(400).json({ error: error });
+      res.status(400).json({ error });
     });
 };
 
 exports.getOneSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then((Sauce) => res.status(200).json(Sauce))
-    .catch((error) => res.status(404).json({ error: error }));
+    .catch((error) => res.status(404).json({ error }));
 };
 
 exports.createSauce = (req, res, next) => {
@@ -72,7 +72,7 @@ exports.likeSauce = (req, res, next) => {
   switch (req.body.like) {
     case 1:
       Sauce.updateOne({ _id: req.params.id }, { $inc: { likes: +1 }, $push: { usersLiked: req.body.userId } })
-        .then(() => res.status(200).json({ message: `J'aime` }))
+        .then(() => res.status(200).json({ message: "J'aime" }))
         .catch((error) => res.status(400).json({ error }));
       break;
 
@@ -81,12 +81,12 @@ exports.likeSauce = (req, res, next) => {
         .then((sauce) => {
           if (sauce.usersLiked.includes(req.body.userId)) {
             Sauce.updateOne({ _id: req.params.id }, { $inc: { likes: -1 }, $pull: { usersLiked: req.body.userId } })
-              .then(() => res.status(200).json({ message: `Annuler` }))
+              .then(() => res.status(200).json({ message: "Annulé" }))
               .catch((error) => res.status(400).json({ error }));
           }
           if (sauce.usersDisliked.includes(req.body.userId)) {
             Sauce.updateOne({ _id: req.params.id }, { $inc: { dislikes: -1 }, $pull: { usersDisliked: req.body.userId } })
-              .then(() => res.status(200).json({ message: `Annuler` }))
+              .then(() => res.status(200).json({ message: "Annulé" }))
               .catch((error) => res.status(400).json({ error }));
           }
         })
@@ -95,7 +95,7 @@ exports.likeSauce = (req, res, next) => {
 
     case -1:
       Sauce.updateOne({ _id: req.params.id }, { $inc: { dislikes: +1 }, $push: { usersDisliked: req.body.userId } })
-        .then(() => res.status(200).json({ message: `Je n'aime pas` }))
+        .then(() => res.status(200).json({ message: "Je n'aime pas" }))
         .catch((error) => res.status(400).json({ error }));
       break;
 
