@@ -21,12 +21,11 @@ const storage = multer.diskStorage({
 module.exports = multer({
   storage: storage,
   fileFilter: (req, file, callback) => {
-    let fileIsValid = true;
     // TODO all verifications linked to file must go here (size, exotic characters in file name, file name length)
     if (!MIME_TYPES[file.mimetype]) {
-      fileIsValid = false;
       callback(new Error("Type d'image invalide !"));
+    } else {
+      callback(null, true);
     }
-    callback(null, fileIsValid);
   },
 }).single("image");

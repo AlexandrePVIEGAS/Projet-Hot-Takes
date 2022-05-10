@@ -22,7 +22,7 @@ exports.getOneSauce = (req, res, next) => {
 };
 
 exports.createSauce = (req, res, next) => {
-  const sauceObject = JSON.parse(req.body.sauce);
+  const sauceObject = req.body;
   delete sauceObject._id;
   const sauce = new Sauce({
     ...sauceObject,
@@ -44,7 +44,7 @@ exports.modifySauce = (req, res, next) => {
             fs.unlinkSync(`images/${filename}`);
           },
           (sauceObject = {
-            ...JSON.parse(req.body.sauce),
+            ...req.body,
             imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
           })
         )
