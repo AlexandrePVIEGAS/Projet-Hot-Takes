@@ -1,12 +1,11 @@
 const express = require("express");
 
-const sauceCtrl = require("../controllers/sauce");
-
 const auth = require("../middleware/auth");
+const verifyUser = require("../middleware/verifyUser");
 const upload = require("../middleware/multer-config");
 const parseJSON = require("../middleware/parseJSON");
 const validator = require("../middleware/validator");
-const verifyUser = require("../middleware/verifyUser");
+const sauceCtrl = require("../controllers/sauce");
 
 const router = express.Router();
 

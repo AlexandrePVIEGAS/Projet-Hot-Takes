@@ -16,10 +16,6 @@ const storage = multer.diskStorage({
     const extension = MIME_TYPES[file.mimetype];
     callback(null, name + Date.now() + "." + extension);
   },
-});
-
-module.exports = multer({
-  storage: storage,
   fileFilter: (req, file, callback) => {
     // TODO all verifications linked to file must go here (size, exotic characters in file name, file name length)
     if (!MIME_TYPES[file.mimetype]) {
@@ -28,4 +24,6 @@ module.exports = multer({
       callback(null, true);
     }
   },
-}).single("image");
+});
+
+module.exports = multer({ storage }).single("image");

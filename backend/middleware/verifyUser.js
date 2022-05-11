@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
       if (sauce.userId === userIdFromTheToken) {
         next();
       } else {
-        res.status(403).json({ message: "Utilisateur non autorisé" });
+        res.status(403).json({ error: "Utilisateur non autorisé" });
       }
     })
     .catch((error) => res.status(500).json({ error }));
