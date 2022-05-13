@@ -11,19 +11,24 @@ const storage = multer.diskStorage({
     callback(null, "images");
   },
   filename: (req, file, callback) => {
-    let name = file.originalname.split(" ").join("_");
-    name = name.replace(/.[^/.]+$/, "");
+    let name = file.originalname.normalize().replace(/.[^/.]+$/, "");
+    name = name.split(" ").join("_").toLowerCase();
     const extension = MIME_TYPES[file.mimetype];
-    callback(null, name + Date.now() + "." + extension);
+    callback(null, name + "_" + Date.now() + "." + extension);
+  },
+});
+
+module.exports = multer({
+  storage,
+  limits: {
+    fieldNameSize: 5,
+    fileSize: 500000,
   },
   fileFilter: (req, file, callback) => {
-    // TODO all verifications linked to file must go here (size, exotic characters in file name, file name length)
     if (!MIME_TYPES[file.mimetype]) {
-      callback(new Error("Type d'image invalide !"));
+      callback(new Error("Le type d'image doit être un jpg, jpeg, ou png !"));
     } else {
       callback(null, true);
     }
   },
-});
-
-module.exports = multer({ storage }).single("image");
+}).single("image");

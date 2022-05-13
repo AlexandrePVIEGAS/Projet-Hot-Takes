@@ -2,9 +2,6 @@ const fs = require("fs");
 
 const Sauce = require("../models/sauce");
 
-// TODO verify if body.sauce exists, do this for all body.something (everywhere)
-// TODO verify each field of the sauce (not empty, expected format, etc.)
-
 exports.getAllSauces = (req, res, next) => {
   Sauce.find()
     .then((Sauces) => {

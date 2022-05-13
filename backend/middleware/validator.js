@@ -2,8 +2,10 @@ const { body, validationResult } = require("express-validator");
 const fs = require("fs");
 
 exports.checkSignup = [
-  body("email").isEmail().withMessage("Email incorrect !"),
-  body("password").isLength({ min: 8 }).withMessage("Minimum 8 charactères recquis pour le mot de passe !"),
+  body("email")
+    .isEmail().withMessage("Email incorrect !"),
+  body("password")
+    .isStrongPassword().withMessage("Le mot de passe doit faire minimum 8 caractères et doit contenir : 1 lettre MAJ, 1 lettre MIN, 1 chiffre et 1 caractère spécial !"),
   (req, res, next) => {
     errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -15,10 +17,18 @@ exports.checkSignup = [
 ];
 
 exports.checkSauce = [
-  body("name").isLength({ min: 3 }).withMessage("Minimum 3 charactères recquis !"),
-  body("manufacturer").isLength({ min: 3 }).withMessage("Minimum 3 charactères recquis !"),
-  body("description").isLength({ min: 3 }).withMessage("Minimum 3 charactères recquis !"),
-  body("mainPepper").isLength({ min: 3 }).withMessage("Minimum 3 charactères recquis !"),
+  body("name")
+    .isString()
+    .isLength({ min: 3 }).withMessage("Minimum 3 caractères requis !"),
+  body("manufacturer")
+    .isString()
+    .isLength({ min: 3 }).withMessage("Minimum 3 caractères requis !"),
+  body("description")
+    .isString()
+    .isLength({ min: 3 }).withMessage("Minimum 3 caractères requis !"),
+  body("mainPepper")
+    .isString()
+    .isLength({ min: 3 }).withMessage("Minimum 3 caractères requis !"),
   (req, res, next) => {
     errors = validationResult(req);
     if (!errors.isEmpty()) {
