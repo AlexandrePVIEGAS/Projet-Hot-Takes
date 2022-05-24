@@ -1,15 +1,11 @@
 const fs = require("fs");
 
-const Sauce = require("../models/sauce");
+const Sauce = require("../models/sauce.models");
 
 exports.getAllSauces = (req, res, next) => {
   Sauce.find()
-    .then((Sauces) => {
-      res.status(200).json(Sauces);
-    })
-    .catch((error) => {
-      res.status(400).json({ error });
-    });
+    .then((Sauces) => res.status(200).json(Sauces))
+    .catch((error) => res.status(400).json({ error }));
 };
 
 exports.getOneSauce = (req, res, next) => {

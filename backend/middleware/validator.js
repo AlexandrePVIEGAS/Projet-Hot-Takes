@@ -32,12 +32,10 @@ exports.checkSauce = [
   (req, res, next) => {
     errors = validationResult(req);
     if (!errors.isEmpty()) {
-      if (req.method === "POST") {
-        fs.unlinkSync(`${req.file.path}`, (err) => {
-          console.log(err);
-          return;
-        });
-      }
+      fs.unlinkSync(`${req.file.path}`, (err) => {
+        console.log(err);
+        return;
+      });
       res.status(400).json({ errors: errors.array() });
     } else {
       next();

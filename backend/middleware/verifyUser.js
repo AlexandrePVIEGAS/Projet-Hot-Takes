@@ -1,4 +1,4 @@
-const Sauce = require("../models/sauce");
+const Sauce = require("../models/sauce.models");
 
 module.exports = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })

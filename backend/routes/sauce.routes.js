@@ -5,7 +5,7 @@ const verifyUser = require("../middleware/verifyUser");
 const uploadImage = require("../middleware/multer-config");
 const parseJSON = require("../middleware/parseJSON");
 const validator = require("../middleware/validator");
-const sauceCtrl = require("../controllers/sauce");
+const sauceCtrl = require("../controllers/sauce.controllers");
 
 const router = express.Router();
 
